@@ -1,26 +1,46 @@
-name: CI Pipeline
+name: trailwithus
 
 on:
   push:
-    branches: [ main ]  # Runs on push to 'main' branch
+    branches: [ main, dev ]  # Trigger on push to main/dev
   pull_request:
-    branches: [ main ]  # Runs on PRs targeting 'main'
+    branches: [ main ]       # Trigger on PRs to main
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest  # GitHub-hosted runner
-    
+  test-and-build:
+    runs-on: ubuntu-latest   # GitHub-hosted runner
+
     steps:
-      - name: Checkout code
+      # 1. Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js (example for a JS project)
+      # 2. Set up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 20  # or your preferred version
+          cache: 'npm'      # Cache npm dependencies
 
+      # 3. Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci         # Uses package-lock.json for exact versions
 
+      # 4. Run TypeScript type-checking (optional)
+      - name: Type-check
+        run: npm run typecheck  # Or "tsc --noEmit" if script not defined
+
+      # 5. Run tests (if you have them, e.g., Vitest/Jest)
       - name: Run tests
-        run: npm test
+        run: npm test       # Assumes "test": "vitest" in package.json
+
+      # 6. Build the Vite project
+      - name: Build
+        run: npm run build   # Assumes "build": "vite build" in package.json
+
+      # (Optional) Upload build artifacts
+      - name: Upload build output
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/        # Vite's default output dir
