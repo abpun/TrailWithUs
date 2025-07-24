@@ -37,12 +37,6 @@ export function Navbar() {
                 <NavigationMenuContent className="flex flex-col gap-1 p-2 w-[300px] border border-[rgba(217,217,217,0.34)]  backdrop-blur-[50px] rounded-lg shadow-lg whitespace-nowrap">
                   <Link
                     className="text-white hover:bg-[#839bba]  px-4 py-2 rounded-md transition-colors text-center truncate"
-                    to={"/honeymoon-packages"}
-                  >
-                    Honeymoon Packages
-                  </Link>
-                  <Link
-                    className="text-white hover:bg-[#839bba]  px-4 py-2 rounded-md transition-colors text-center truncate"
                     to={"/tour-packages"}
                   >
                     Tour Packages
