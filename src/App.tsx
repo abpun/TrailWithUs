@@ -4,6 +4,7 @@ import AppLayout from "./layout/AppLayout.tsx";
 import AuthLayout from "./layout/AuthLayout.tsx";
 import About from "./pages/About/about.tsx";
 import Home from "./pages/Home/home.tsx";
+import TourPackages from "./pages/Services's/TourPackages.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
       { index: true, element: <Navigate to="/home" replace /> }, // Redirect root to /home
       { path: "home", element: <Home /> },
       { path: "about", element: <About /> },
+      { path: "tour-packages", element: <TourPackages /> },
     ],
   },
   {
