@@ -129,7 +129,6 @@ const TourListPage = () => {
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
-    // In a real app, you would filter tours by date here
     console.log("Selected date:", date);
   };
 
