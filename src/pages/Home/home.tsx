@@ -13,18 +13,29 @@ import ClientFeedback from "@/components/Home/ClientFeedback";
 
 const Home = () => {
   return (
-    <>
-      <div className="">
-        <div>
-          <img src={HeroImg} alt="hero img " />
-          <div className=" flex justify-around items-center py-5 bg-[#f0eeee]">
-            <img className="w-50" src={Emirates} />
-            <img className="w-50" src={Trivago} />
-            <img className="w-50" src={Airbnb} />
-            <img className="w-50" src={Turkish} />
-            <img className="w-50" src={Swiss} />
+    <div className="overflow-hidden">
+      <div>
+        <img 
+          src={HeroImg} 
+          alt="hero img" 
+          className="w-full h-auto object-cover"
+        />
+        
+        <div className="bg-[#f0eeee] py-3 md:py-5 overflow-x-auto">
+          <div className="container mx-auto px-4">
+            <div className="flex justify-around items-center gap-4 md:gap-8 lg:gap-12">
+              <img className="h-6 md:h-10 lg:h-16 object-contain" src={Emirates} alt="Emirates" />
+              <img className="h-6 md:h-10 lg:h-16 object-contain" src={Trivago} alt="Trivago" />
+              <img className="h-6 md:h-10 lg:h-16 object-contain" src={Airbnb} alt="Airbnb" />
+              <img className="h-6 md:h-10 lg:h-16 object-contain" src={Turkish} alt="Turkish Airlines" />
+              <img className="h-6 md:h-10 lg:h-16 object-contain" src={Swiss} alt="Swiss" />
+            </div>
           </div>
         </div>
+      </div>
+      
+      {/* Page Content */}
+      <div className="container mx-auto px-4">
         <Services />
         <Banner />
         <Promotion />
@@ -32,7 +43,8 @@ const Home = () => {
         <TrendingPackages />
         <ClientFeedback />
       </div>
-    </>
+    </div>
   );
 };
+
 export default Home;

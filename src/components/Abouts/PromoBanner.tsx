@@ -5,20 +5,20 @@ import { Button } from "../ui/button";
 const Promotion = () => {
   return (
     <section className="relative overflow-hidden">
-      <div className="container mx-auto px-4 py-12 md:py-20 lg:py-24">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 xl:gap-20">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24">
+        <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12 xl:gap-20">
           {/* Text Content */}
-          <div className="lg:w-1/2 space-y-6">
+          <div className="lg:w-1/2 space-y-4 sm:space-y-5 md:space-y-6">
             <Text
               type="caption"
-              className="text-[#DF6951] font-semibold uppercase tracking-widest"
+              className="text-[#DF6951] text-sm sm:text-base font-semibold uppercase tracking-widest"
             >
               Promotion
             </Text>
 
             <Text
               type="title"
-              className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#181E4B] leading-tight animate-fade-in delay-100"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#181E4B] leading-snug sm:leading-tight md:leading-tight"
             >
               Discover Europe's <span className="text-[#DF6951]">Finest</span>{" "}
               Sightseeing Tours
@@ -26,7 +26,7 @@ const Promotion = () => {
 
             <Text
               type="description"
-              className="text-gray-600 text-base md:text-lg leading-relaxed max-w-lg"
+              className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-md sm:max-w-lg"
             >
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
               earum eaque voluptatum nostrum, autem commodi quasi officiis.
@@ -34,12 +34,12 @@ const Promotion = () => {
               minus, assumenda, aliquid quis sapiente?
             </Text>
 
-            <div className="pt-2">
-              <Button className="bg-[#DF6951] hover:bg-[#c3533d] px-10 py-7 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div className="pt-1 sm:pt-2">
+              <Button className="bg-[#DF6951] hover:bg-[#c3533d] px-6 sm:px-8 md:px-10 py-5 sm:py-6 md:py-7 text-sm sm:text-base md:text-lg font-semibold rounded-lg sm:rounded-xl shadow-md hover:shadow-lg sm:shadow-lg sm:hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                 Explore Tours
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 ml-2"
+                  className="h-4 w-4 sm:h-5 sm:w-5 ml-2"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -54,12 +54,12 @@ const Promotion = () => {
           </div>
 
           {/* Image */}
-          <div className="lg:w-1/2 mt-10 lg:mt-0">
+          <div className="lg:w-1/2 mt-6 sm:mt-8 md:mt-10 lg:mt-0">
             <div className="relative">
               <img
                 src={PromoImg}
                 alt="Europe sightseeing tour"
-                className="w-full h-auto max-w-lg mx-auto lg:max-w-none"
+                className="w-full h-auto max-w-md sm:max-w-lg mx-auto lg:max-w-none"
               />
             </div>
           </div>
