@@ -7,6 +7,7 @@ import Text from "../common/text";
 import { Card } from "../ui/card";
 import { Calendar, ArrowUp, ArrowDown } from "lucide-react";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { useNavigate } from "react-router";
 
 interface Tour {
   id: number;
@@ -90,6 +91,7 @@ const TourListPage = () => {
   const [priceSort, setPriceSort] = useState<"low" | "high">("low");
   const [nameSort, setNameSort] = useState<"a-z" | "z-a">("a-z");
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let result = [...tours];
@@ -129,7 +131,6 @@ const TourListPage = () => {
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
-    console.log("Selected date:", date);
   };
 
   const resetFilters = () => {
@@ -142,43 +143,47 @@ const TourListPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 md:px-40 py-8">
+    <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-8">
       <div className="relative bg-white shadow-xl rounded-xl overflow-hidden">
         {/* Filter bar */}
         <div className="w-full absolute -top-16 mx-auto">
-          <div className="flex flex-wrap justify-center md:justify-between items-center w-full bg-[#f8f8f8] p-3 rounded-t-xl">
-            <DatePicker onSelect={handleDateSelect} selected={selectedDate} />
+          <div className="flex flex-col sm:flex-row justify-center md:justify-between items-center w-full bg-[#f8f8f8] p-3 sm:p-4 rounded-t-xl gap-2 sm:gap-0">
+            <div className="w-full sm:w-auto">
+              <DatePicker onSelect={handleDateSelect} selected={selectedDate} />
+            </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-center gap-2 w-full sm:w-auto">
               {/* Price Sort Buttons */}
               <div className="flex items-center space-x-1">
                 <button
-                  className={`px-3 py-1 text-sm rounded border flex items-center gap-1 ${
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded border flex items-center gap-1 ${
                     priceSort === "low"
                       ? "bg-black text-white border-black"
                       : "bg-white border-gray-300 hover:bg-gray-50"
                   }`}
                   onClick={() => setPriceSort("low")}
                 >
-                  <ArrowUp size={14} />
-                  Price Low
+                  <ArrowUp size={12} className="sm:size-[14px]" />
+                  <span className="hidden sm:inline">Price Low</span>
+                  <span className="sm:hidden">Low</span>
                 </button>
                 <button
-                  className={`px-3 py-1 text-sm rounded border flex items-center gap-1 ${
+                  className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded border flex items-center gap-1 ${
                     priceSort === "high"
                       ? "bg-black text-white border-black"
                       : "bg-white border-gray-300 hover:bg-gray-50"
                   }`}
                   onClick={() => setPriceSort("high")}
                 >
-                  <ArrowDown size={14} />
-                  Price High
+                  <ArrowDown size={12} className="sm:size-[14px]" />
+                  <span className="hidden sm:inline">Price High</span>
+                  <span className="sm:hidden">High</span>
                 </button>
               </div>
 
               {/* Name Sort Button */}
               <button
-                className={`px-3 py-1 text-sm rounded border flex items-center gap-1 ${
+                className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded border flex items-center gap-1 ${
                   nameSort === "a-z"
                     ? "bg-black text-white border-black"
                     : "bg-white border-gray-300 hover:bg-gray-50"
@@ -191,10 +196,10 @@ const TourListPage = () => {
           </div>
         </div>
 
-        <div className="pt-20 pb-8 px-6">
-          <div className="flex flex-col lg:flex-row gap-8">
+        <div className="pt-20 pb-8 px-4 sm:px-6">
+          <div className="flex flex-col lg:flex-row gap-6">
             {/* Tours List */}
-            <div className="flex-1">
+            <div className="flex-1 order-2 lg:order-1">
               {filteredTours.length === 0 ? (
                 <div className="text-center py-12">
                   <Text type="title" className="text-xl mb-2">
@@ -208,41 +213,50 @@ const TourListPage = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                   {filteredTours.map((tour) => (
                     <Card
                       key={tour.id}
-                      className="flex flex-col rounded-xl shadow-lg hover:shadow-xl hover:scale-[103%] transition-all duration-300 overflow-hidden pt-0 gap-0"
+                      className="flex flex-col rounded-xl shadow-lg hover:shadow-xl hover:scale-[102%] transition-all duration-300 overflow-hidden pt-0 gap-0 cursor-pointer"
+                      onClick={() => navigate("/tour-packages/tour-information")}
                     >
-                      <img
-                        className="w-full h-48 object-cover"
-                        src={tour.image}
-                        alt={tour.name}
-                      />
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          className="w-full h-full object-cover"
+                          src={tour.image}
+                          alt={tour.name}
+                        />
+                      </div>
                       <div className="flex justify-between items-center bg-[#df6951] p-2">
-                        <Text className="flex items-center gap-2 text-white text-sm">
-                          <Calendar size={16} />
+                        <Text className="flex items-center gap-2 text-white text-xs sm:text-sm">
+                          <Calendar size={14} className="sm:size-[16px]" />
                           {tour.date}
                         </Text>
-                        <Text className="flex items-center gap-2 text-white text-sm">
-                          <FaPeopleGroup size={16} />
+                        <Text className="flex items-center gap-2 text-white text-xs sm:text-sm">
+                          <FaPeopleGroup size={14} className="sm:size-[16px]" />
                           {tour.participants}+ People
                         </Text>
                       </div>
-                      <div className="p-4 flex-1 flex flex-col">
+                      <div className="p-3 sm:p-4 flex-1 flex flex-col">
                         <Text
                           type="title"
-                          className="text-lg font-semibold mb-2"
+                          className="text-base sm:text-lg font-semibold mb-2"
                         >
                           {tour.name}
                         </Text>
-                        <Text type="description" className="mb-4 flex-1">
+                        <Text type="description" className="mb-3 sm:mb-4 text-sm sm:text-base flex-1">
                           {tour.description}
                         </Text>
                         <div className="flex justify-between items-center">
-                          <Text className="text-lg font-bold text-[#df6951]">
+                          <Text className="text-base sm:text-lg font-bold text-[#df6951]">
                             ${tour.price}
                           </Text>
+                          <Button 
+                            size="sm" 
+                            className="hidden sm:inline-flex bg-[#df6951] hover:bg-[#c45a44]"
+                          >
+                            View Details
+                          </Button>
                         </div>
                       </div>
                     </Card>
@@ -251,55 +265,61 @@ const TourListPage = () => {
               )}
             </div>
 
-            {/* Filters Sidebar */}
-            <div className="w-full lg:w-80 bg-white border border-gray-200 rounded-xl p-6 h-fit sticky top-8">
-              <div className="flex justify-between items-center mb-6">
-                <Text type="title" className="text-xl font-semibold">
-                  Plan Your Trip
-                </Text>
-                <button
-                  onClick={resetFilters}
-                  className="text-sm text-gray-500 hover:text-black"
-                >
-                  Reset
-                </button>
-              </div>
-
-              <div className="space-y-4">
-                <Input
-                  placeholder="Search Tour"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <Input
-                  placeholder="Where To?"
-                  value={locationTerm}
-                  onChange={(e) => setLocationTerm(e.target.value)}
-                />
-                <DatePicker
-                  onSelect={handleDateSelect}
-                  selected={selectedDate}
-                />
-
-                <div>
-                  <h3 className="text-sm font-medium mb-2">Filter By Price</h3>
-                  <Slider
-                    min={100}
-                    max={3500}
-                    step={100}
-                    value={priceRange}
-                    onValueChange={(val) => setPriceRange(val)}
-                    className="mb-2"
-                  />
-                  <div className="flex justify-between text-sm text-gray-600">
-                    <span>${priceRange[0]}</span>
-                    <span>${priceRange[1]}</span>
-                  </div>
+            {/* Filters Sidebar - Mobile Collapsible */}
+            <div className="lg:w-80 order-1 lg:order-2">
+              <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6 lg:sticky lg:top-8">
+                <div className="flex justify-between items-center mb-4 sm:mb-6">
+                  <Text type="title" className="text-lg sm:text-xl font-semibold">
+                    Plan Your Trip
+                  </Text>
+                  <button
+                    onClick={resetFilters}
+                    className="text-xs sm:text-sm text-gray-500 hover:text-black"
+                  >
+                    Reset
+                  </button>
                 </div>
 
-                <Button className="w-full bg-[#df6951] hover:bg-[#c45a44]">
-                  Search Tours
-                </Button>
+                <div className="space-y-3 sm:space-y-4">
+                  <Input
+                    placeholder="Search Tour"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="text-sm sm:text-base"
+                  />
+                  <Input
+                    placeholder="Where To?"
+                    value={locationTerm}
+                    onChange={(e) => setLocationTerm(e.target.value)}
+                    className="text-sm sm:text-base"
+                  />
+                  <DatePicker
+                    onSelect={handleDateSelect}
+                    selected={selectedDate}
+                  />
+
+                  <div>
+                    <h3 className="text-xs sm:text-sm font-medium mb-2">
+                      Filter By Price
+                    </h3>
+                    <Slider
+                      min={100}
+                      max={3500}
+                      step={100}
+                      value={priceRange}
+                      onValueChange={(val) => setPriceRange(val)}
+                      className="mb-2"
+                    />
+                    <div className="flex justify-between text-xs sm:text-sm text-gray-600">
+                      <span>${priceRange[0]}</span>
+                      <span>${priceRange[1]}</span>
+                    </div>
+                  </div>
+
+                  <Button className="w-full bg-[#df6951] hover:bg-[#c45a44] text-sm sm:text-base">
+                    Search Tours
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

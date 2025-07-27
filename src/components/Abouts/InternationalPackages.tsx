@@ -82,8 +82,8 @@ const packagesData = [
 
 const InternationalPackages = () => {
   return (
-    <div className="my-20 pb-20 max-w-7xl mx-auto px-4">
-      <div className="space-y-4 text-center mb-12">
+    <div className="my-10 md:my-16 lg:my-20 pb-10 md:pb-16 lg:pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="space-y-2 sm:space-y-3 md:space-y-4 text-center mb-8 sm:mb-10 md:mb-12">
         <Text
           type="caption"
           className="text-[#DF6951] font-bold uppercase tracking-[0.2em] text-xs sm:text-sm"
@@ -93,32 +93,34 @@ const InternationalPackages = () => {
 
         <Text
           type="title"
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#181E4B] leading-snug"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#181E4B] leading-snug"
         >
           Our International Packages
         </Text>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-fr">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 auto-rows-fr">
         {packagesData.map((item, index) => (
           <div
             key={item.id}
-            className={`group relative flex flex-col overflow-hidden shadow-md hover:shadow-xl  hover:scale-[1.03] transition-all duration-300 cursor-pointer ${
-              index === 2 ? "row-span-2" : "aspect-square"
+            className={`group relative flex flex-col overflow-hidden rounded-lg shadow-md hover:shadow-xl hover:scale-[1.03] transition-all duration-300 cursor-pointer ${
+              index === 2 ? "sm:row-span-2" : "aspect-square"
             }`}
           >
             <img
               src={item.image}
               alt={item.destination}
-              className="absolute inset-0 w-full h-full object-cover filter brightness-[65%]"
+              className="absolute inset-0 w-full h-full object-cover filter brightness-[65%] group-hover:brightness-75 transition-all duration-300"
             />
-            <div className="relative z-10 flex items-end justify-between  px-3 py-4 h-full  text-center ">
-              <span className="text-lg font-semibold text-white whitespace-nowrap overflow-hidden text-ellipsis">
-                {item.destination}
-              </span>
-              <span className="text-[16px] font-semibold text-white mt-2">
-                {item.price}
-              </span>
+            <div className="relative z-10 flex flex-col justify-end p-3 sm:p-4 h-full">
+              <div className="flex justify-between items-end">
+                <span className="text-sm sm:text-base md:text-lg font-semibold text-white whitespace-nowrap overflow-hidden text-ellipsis">
+                  {item.destination}
+                </span>
+                <span className="text-sm sm:text-base md:text-[16px] font-semibold text-white">
+                  {item.price}
+                </span>
+              </div>
             </div>
           </div>
         ))}

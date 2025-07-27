@@ -1,10 +1,15 @@
 import "./index.css";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import AppLayout from "./layout/AppLayout.tsx";
 import AuthLayout from "./layout/AuthLayout.tsx";
 import About from "./pages/About/about.tsx";
 import Home from "./pages/Home/home.tsx";
 import TourPackages from "./pages/Services's/TourPackages.tsx";
+import TourInformation from "./pages/Services's/TourInformation.tsx";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +20,10 @@ const router = createBrowserRouter([
       { index: true, element: <Navigate to="/home" replace /> }, // Redirect root to /home
       { path: "home", element: <Home /> },
       { path: "about", element: <About /> },
+
+      //packages
       { path: "tour-packages", element: <TourPackages /> },
+      { path: "tour-packages/tour-information", element: <TourInformation /> },
     ],
   },
   {
