@@ -128,8 +128,8 @@ const Information = () => {
         </div>
 
         {/* Booking Form */}
-        <div className="w-full lg:w-5/12 p-4 md:p-6">
-          <div className="h-fit p-4 md:p-6 lg:px-6 lg:py-12 bg-gray-200 flex items-center justify-center">
+        <div className="w-full lg:w-5/12 space-y-6">
+          <div className="bg-gray-200 p-6 shadow-md mt-5">
             <BookTourForm />
           </div>
         </div>
