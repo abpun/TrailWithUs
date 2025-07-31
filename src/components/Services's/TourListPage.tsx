@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { DatePicker } from "../common/Date-picker";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -22,23 +22,43 @@ interface Tour {
   price: number;
   updatedAt: string;
   __v: number;
+  destination: string;
 }
 
 interface ApiResponse {
   success: boolean;
   data: Tour[];
   message: string;
+  count: number;
 }
 
 const TourListPage = () => {
-  const { data: apiResponse, isLoading, error } = useFetch<ApiResponse>("/services", ["services"]);
   const navigate = useNavigate();
-
   const [sortOption, setSortOption] = useState<"priceLow" | "priceHigh" | "nameAZ" | "default">("default");
   const [searchQuery, setSearchQuery] = useState("");
   const [locationQuery, setLocationQuery] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([100, 3500]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+
+  // Build query params based on filters
+  const queryParams = new URLSearchParams();
+  if (searchQuery) queryParams.append("search", searchQuery);
+  if (locationQuery) queryParams.append("destination", locationQuery);
+  if (priceRange[0] !== 100 || priceRange[1] !== 3500) {
+    queryParams.append("minPrice", priceRange[0].toString());
+    queryParams.append("maxPrice", priceRange[1].toString());
+  }
+  if (selectedDate) {
+    queryParams.append("date", format(selectedDate, "yyyy-MM-dd"));
+  }
+  if (sortOption === "priceLow") queryParams.append("sort", "price-low-high");
+  if (sortOption === "priceHigh") queryParams.append("sort", "price-high-low");
+  if (sortOption === "nameAZ") queryParams.append("sort", "a-z");
+
+  const { data: apiResponse, isLoading, error } = useFetch<ApiResponse>(
+    `/services?${queryParams.toString()}`,
+    ["services", queryParams.toString()]
+  );
 
   const formatTourDate = (dateString: string) => {
     try {
@@ -48,57 +68,6 @@ const TourListPage = () => {
       return "Date not available";
     }
   };
-
-  const filteredTours = useMemo(() => {
-    if (!apiResponse?.data) return [];
-
-    let tours = [...apiResponse.data];
-
-    // Apply search filter
-    if (searchQuery) {
-      tours = tours.filter(tour => 
-        tour.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tour.description.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    // Apply location filter
-    if (locationQuery) {
-      tours = tours.filter(tour => 
-        tour.description.toLowerCase().includes(locationQuery.toLowerCase())
-      );
-    }
-
-    // Apply price range filter
-    tours = tours.filter(tour => 
-      tour.price >= priceRange[0] && tour.price <= priceRange[1]
-    );
-
-    // Apply date filter
-    if (selectedDate) {
-      const selectedDateString = format(selectedDate, "yyyy-MM-dd");
-      tours = tours.filter(tour => {
-        try {
-          const tourDate = new Date(tour.date);
-          return format(tourDate, "yyyy-MM-dd") === selectedDateString;
-        } catch {
-          return false;
-        }
-      });
-    }
-
-    // Apply sorting
-    switch (sortOption) {
-      case "priceLow":
-        return tours.sort((a, b) => a.price - b.price);
-      case "priceHigh":
-        return tours.sort((a, b) => b.price - a.price);
-      case "nameAZ":
-        return tours.sort((a, b) => a.name.localeCompare(b.name));
-      default:
-        return tours;
-    }
-  }, [apiResponse, sortOption, searchQuery, locationQuery, priceRange, selectedDate]);
 
   const resetFilters = () => {
     setSearchQuery("");
@@ -190,7 +159,7 @@ const TourListPage = () => {
             {/* Tours List */}
             <div className="flex-1 order-2 lg:order-1">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-                {filteredTours.map((tour) => (
+                {apiResponse.data.map((tour) => (
                   <Card
                     key={tour._id}
                     className="flex flex-col rounded-xl shadow-lg hover:shadow-xl hover:scale-[102%] transition-all duration-300 overflow-hidden pt-0 gap-0 cursor-pointer"
@@ -202,7 +171,7 @@ const TourListPage = () => {
                         src={tour?.image}
                         alt={tour.name}
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = "https://via.placeholder.com/400x300?text=Tour+Image";
+                          (e.target as HTMLImageElement).src = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.adventurealternative.com%2Fasia%2Ftrekking-himalayas%2F&psig=AOvVaw3Q9Zu36js77p5BMPhiMR2A&ust=1754019997588000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOif5OqX5o4DFQAAAAAdAAAAABAE";
                         }}
                       />
                     </div>
@@ -296,7 +265,6 @@ const TourListPage = () => {
 
                   <Button 
                     className="w-full bg-[#df6951] hover:bg-[#c45a44] text-sm sm:text-base"
-                    onClick={() => {}} // Already filtering in real-time
                   >
                     Search Tours
                   </Button>

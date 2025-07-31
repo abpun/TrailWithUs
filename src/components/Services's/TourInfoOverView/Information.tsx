@@ -4,7 +4,18 @@ import { Star } from "lucide-react";
 import tour from "@/assets/Services's/TourPacakag/tour.png";
 import TravelPackagesGrid from "@/components/common/TravelPackagesGrid";
 
-const Information = () => {
+interface Highlight {
+  title: string;
+  description: string;
+}
+
+interface Information {
+  infoDescription: string;
+  highlights: Highlight[];
+}
+
+const Information = ({data}: {data: Information}) => {
+  console.log(data)
   const renderStars = (rating: number) => {
     return (
       <div className="flex justify-center gap-1 mb-4">

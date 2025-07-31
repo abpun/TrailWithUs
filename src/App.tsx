@@ -23,7 +23,7 @@ const router = createBrowserRouter([
 
       //packages
       { path: "tour-packages", element: <TourPackages /> },
-      { path: "tour-packages/tour-information", element: <TourInformation /> },
+      { path: "tour-packages/tour-information/:id", element: <TourInformation /> },
     ],
   },
   {

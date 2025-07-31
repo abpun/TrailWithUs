@@ -2,6 +2,19 @@ import Text from "@/components/common/text";
 import { BookTourForm } from "@/components/form/BookTourForm";
 import tour from "@/assets/Services's/TourPacakag/tour.png";
 
+
+interface ItineraryDay {
+  day: number;
+  title: string;
+  description: string[];
+  amenities: string[];
+}
+
+interface TourPlan {
+  title: string;
+  itinerary: ItineraryDay[];
+}
+
 const Tour_Plan = () => {
   const itinerary = [
     {

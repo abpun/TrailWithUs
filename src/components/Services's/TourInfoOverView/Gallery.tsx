@@ -1,6 +1,17 @@
 import { BookTourForm } from "@/components/form/BookTourForm";
 import tour from "@/assets/Services's/TourPacakag/tour.png";
 
+interface GalleryImage {
+  image: string;
+  colSpan: number;
+  rowSpan: number;
+}
+
+interface Gallery {
+  galleryDescription: string;
+  images: GalleryImage[];
+}
+
 const GalleryPic = [
   {
     id: 1,

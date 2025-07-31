@@ -2,6 +2,13 @@ import { BookTourForm } from "@/components/form/BookTourForm";
 import tour from "@/assets/Services's/TourPacakag/tour.png";
 import Text from "@/components/common/text";
 
+interface Location {
+  title: string;
+  first_description: string;
+  mapEmbed: string;
+  second_description: string;
+}
+
 const Location = () => {
   return (
     <div className="flex flex-col lg:flex-row h-full">
