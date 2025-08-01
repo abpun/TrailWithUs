@@ -4,6 +4,9 @@ import TourInfoList from "@/components/Services's/TourInfoList";
 import { useParams } from "react-router";
 import useFetch from "@/hooks/useFetch";
 import Text from "@/components/common/text";
+import { type ApiResponse } from "@/types/tour";
+
+
 
 const TourInformation = () => {
   const params = useParams();
@@ -16,11 +19,10 @@ const TourInformation = () => {
     );
   }
 
-  const { data, isLoading, error } = useFetch(
-    `/services/${params.id}`, // Changed from /service/ to /services/
+  const { data, isLoading, error } = useFetch<ApiResponse>(
+    `/services/${params.id}`,
     ["service", params.id]
   );
-  console.log(data)
 
   if (isLoading) {
     return (
@@ -56,7 +58,7 @@ const TourInformation = () => {
           </div>
         </div>
         <div className="filter brightness-[85%]">
-          <img src={TourPackages} alt="hero img " />
+          <img src={TourPackages} alt="hero img" className="w-full h-full object-cover" />
         </div>
       </div>
       <TourInfoList tourData={data} />
