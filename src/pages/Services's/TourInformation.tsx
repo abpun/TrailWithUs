@@ -1,8 +1,54 @@
 import Packages from "@/assets/svg/TourPackages.svg";
 import TourPackages from "@/assets/Services's/tour-packages.png";
 import TourInfoList from "@/components/Services's/TourInfoList";
+import { useParams } from "react-router";
+import useFetch from "@/hooks/useFetch";
+import Text from "@/components/common/text";
+import { type ApiResponse } from "@/types/tour";
+
+
 
 const TourInformation = () => {
+  const params = useParams();
+
+  if (!params.id) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <Text type="title">Invalid tour ID</Text>
+      </div>
+    );
+  }
+
+  const { data, isLoading, error } = useFetch<ApiResponse>(
+    `/services/${params.id}`,
+    ["service", params.id]
+  );
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <Text type="title">Loading tour information...</Text>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center text-red-500">
+        <Text type="title">Error loading tour</Text>
+        <Text type="description">{error.message}</Text>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <Text type="title">Tour not found</Text>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gray-100">
       <div className="relative">
@@ -12,11 +58,12 @@ const TourInformation = () => {
           </div>
         </div>
         <div className="filter brightness-[85%]">
-          <img src={TourPackages} alt="hero img " />
+          <img src={TourPackages} alt="hero img" className="w-full h-full object-cover" />
         </div>
       </div>
-      <TourInfoList />
+      <TourInfoList tourData={data} />
     </div>
   );
 };
+
 export default TourInformation;

@@ -15,15 +15,15 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    errorElement: "", // Add a proper error element if needed
+    errorElement: "", 
     children: [
-      { index: true, element: <Navigate to="/home" replace /> }, // Redirect root to /home
+      { index: true, element: <Navigate to="/home" replace /> }, 
       { path: "home", element: <Home /> },
       { path: "about", element: <About /> },
 
       //packages
       { path: "tour-packages", element: <TourPackages /> },
-      { path: "tour-packages/tour-information", element: <TourInformation /> },
+      { path: "tour-packages/tour-information/:id", element: <TourInformation /> },
     ],
   },
   {
