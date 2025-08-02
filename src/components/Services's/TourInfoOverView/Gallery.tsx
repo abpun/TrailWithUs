@@ -1,4 +1,6 @@
 import { BookTourForm } from "@/components/form/BookTourForm";
+import tourImg from "@/assets/Services's/TourPacakag/tour.png"
+
 
 interface GalleryProps {
   data: {
@@ -48,7 +50,7 @@ const Gallery = ({ data }: GalleryProps) => {
         <div className="h-64 md:h-80 lg:h-[20rem] overflow-hidden rounded-lg">
           <img
             className="w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+            src={tourImg}
             alt="tour"
           />
         </div>
