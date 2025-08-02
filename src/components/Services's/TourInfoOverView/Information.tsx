@@ -2,6 +2,7 @@ import Text from "@/components/common/text";
 import { BookTourForm } from "@/components/form/BookTourForm";
 import { Star } from "lucide-react";
 import TravelPackagesGrid from "@/components/common/TravelPackagesGrid";
+import tourImg from "@/assets/Services's/TourPacakag/tour.png"
 
 interface InformationProps {
   data: {
@@ -27,7 +28,7 @@ interface InformationProps {
   };
 }
 
-const Information = ({ data, name, price, priceUnit, rating, reviewCount, image, gallery }: InformationProps) => {
+const Information = ({ data, name, price, priceUnit, rating, reviewCount, gallery }: InformationProps) => {
   const renderStars = (rating: number) => {
     return (
       <div className="flex justify-center gap-1 mb-4">
@@ -113,7 +114,7 @@ const Information = ({ data, name, price, priceUnit, rating, reviewCount, image,
         <div className="w-full max-md:hidden lg:w-5/12 h-64 md:h-80 lg:h-[20rem] overflow-hidden">
           <img
             className="w-full h-full object-cover"
-            src={image}
+            src={tourImg}
             alt="tour"
           />
         </div>
