@@ -11,9 +11,7 @@ import ViewPackages from "@/components/Home/ViewPackages";
 import TrendingPackages from "@/components/Home/TrendingPackages";
 import ClientFeedback from "@/components/Home/ClientFeedback";
 
-
 const Home = () => {
-
   return (
     <div className="overflow-hidden">
       <div>
@@ -56,7 +54,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Page Content */}
       <div className="container mx-auto px-4">
         <Services />
         <Banner />
